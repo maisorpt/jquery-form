@@ -19,7 +19,7 @@
   <div class="row">
     <div class="col-sm-6 mt-5" >
       
-<div class="text-bg-success p-3 rounded rounded-5">
+<div class="text-bg-success p-3 rounded rounded-4">
 <h1 >Formulir</h1>
   <form action="process.php"  method="POST" id="dahlah">
         <div id="nama-group" class="form-group">
