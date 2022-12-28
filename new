@@ -1,0 +1,10 @@
+       $(".no").click(function(){
+            alert ("x");
+            const x = $(this).attr("id");
+            $.post("delete.php",  { x }, function (a) {
+              
+                window.location.reload();
+                });
+            });
+
+                </td><td class="btn btn-danger no" id="${item.no}">${item.nohp}</td>

@@ -71,6 +71,7 @@
             <th>Alamat</th>
             <th>Jenis</th>
             <th>No Hp</th>
+            <th>Menu</th>
           </tr>
         </thead>
         <tbody id="munculTabel">
@@ -86,31 +87,44 @@
   <script>
     $(document).ready(() => {
       const $munculTabel = $('#munculTabel');
+
 // fungsi untuk memunculkan data
       function reloaddata() {
         $.getJSON('http://localhost/php/jquery-form-validation%20copy/getdata.php', (respon) => {
           const markup = respon
-            .map(item => `<tr><td >${item.no}</td><td >${item.nama}</td><td class=>${item.alamat}</td><td class=>${item.jenis}</td><td class=>${item.nohp}</td></tr>`)
+            .map(item => `<tr><td >${item.no}</td><td >${item.nama}</td><td>${item.alamat}</td><td>${item.jenis}</td><td>${item.nohp}</td><td class="no" id="${item.no}"><button class="btn btn-danger">Hapus</button></td></tr>`)
             .join('');
 
           $munculTabel.html(markup);
         });
       }
-      // memanggil fungsi
-      reloaddata();
-// fungsi untuk submit form
+
+
+      $.getJSON('http://localhost/php/jquery-form-validation%20copy/getdata.php', (respon) => {
+          const markup = respon
+            .map(item => `<tr><td >${item.no}</td><td >${item.nama}</td><td>${item.alamat}</td><td>${item.jenis}</td><td>${item.nohp}</td><td class="no" id="${item.no}"><button class="btn btn-danger">Hapus</button></td></tr>`)
+            .join('');
+
+          $munculTabel.html(markup);
+       $(".no").click(function(){
+
+            const x = $(this).attr("id");
+            $.post("delete.php",  { x }, function (a) {
+              
+                window.location.reload();
+                });
+            });
+        });
+      
+
+// fungsi untuk submit form & menampilkan data
       $("form").submit(function (event) {
         event.preventDefault();
 
         $.post('process.php', $('#dahlah').serialize(), function (a) {
           console.log(a);
-
+          reloaddata();
         });
-      });
-// merefresh data setiap submit form agar menampilkan data baru
-      $("#button").on('click', function () {
-        reloaddata();
-
       });
 
       $("#button1").click(function(){
